@@ -1,8 +1,9 @@
-import React, { Component } from "./react/react";
-import ReactDOM from "./react/react-dom";
+// import React, { Component } from "./react/react";
+// import ReactDOM from "./react/react-dom";
+import ReactDOM from "react-dom";
+import React, { useState, useEffect } from "react";
 let a = React.createRef();
-// import ReactDOM from "react-dom";
-// import React from "react";
+
 // const element = React.createElement(
 //   "h1",
 //   {
@@ -61,8 +62,27 @@ class ClassComponent extends React.Component {
       <div>
         {/* <TextInput ref={this.classRef} /> */}
         <button onClick={this.handleClick}>点击获取子组件input焦点</button>
+        <ChildComponent number={this.state.number} />
       </div>
     );
+  }
+}
+class ChildComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "李浩然",
+    };
+  }
+  static getDerivedStateFromProps(props, state) {
+    console.log(props, state);
+    return null;
+  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps);
+  // }
+  render() {
+    return <div>ChildComponent</div>;
   }
 }
 // class TextInput extends React.Component {
@@ -89,7 +109,24 @@ class ClassComponent extends React.Component {
 //   </Provider>,
 //   document.getElementById("root")
 // );
-ReactDOM.render(<ClassComponent />, document.getElementById("root"));
+function FunctionComponent() {
+  const [fields, setfields] = useState([0]);
+
+  function change(){
+    setTimeout(()=>{
+      setfields([...fields, 1])
+    },100)
+    setTimeout(()=>{
+      setfields(fields => [...fields, 2])
+    },500)
+  }
+  
+  useEffect(() => {
+    console.log(123,fields )
+  }, [fields]);
+  return <div onClick={change}>1</div>;
+}
+ReactDOM.render(<FunctionComponent />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

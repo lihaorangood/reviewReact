@@ -15,7 +15,7 @@ export const updateQueue = {
     this.updaters.length = 0;
     this.isBatchingUpdates = false;
   },
-};
+}; 
 function shouldUpdateComponent(classInstance, nextProps, nextState) {
   // 无论组件视图是否需要更新我们组件内部的转台是最新的
   classInstance.props = nextProps || classInstance.props;
